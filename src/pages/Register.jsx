@@ -69,10 +69,10 @@ export default function Register() {
     <div className="min-h-screen lg:h-screen lg:overflow-hidden flex flex-col justify-between bg-gray-50/80 text-gray-900 font-sans selection:bg-emerald-100 selection:text-emerald-900">
       
       {/* ======================================================== */}
-      {/* 1. TOP HEADER                                            */}
+      {/* 1. TOP HEADER (Sleek, Clean, Consistent)                 */}
       {/* ======================================================== */}
       <header className="shrink-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-2xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-13 sm:h-14 flex items-center justify-between">
           <Link 
             to="/" 
             className="flex items-center gap-2 rounded-lg py-1 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-emerald-600 transition-transform hover:scale-[1.01]"
@@ -87,7 +87,7 @@ export default function Register() {
 
           {/* Right Tagline */}
           <div className="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
-            <Sprout className="h-3.5 w-3.5 text-emerald-600" />
+            <Sprout className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
             <span className="italic">Less waste. More value.</span>
           </div>
         </div>
@@ -95,12 +95,13 @@ export default function Register() {
 
       {/* ======================================================== */}
       {/* 2. MAIN CENTERED CARD CONTAINER                          */}
+      {/* Spacious, larger, but fits desktop without scrolling    */}
       {/* ======================================================== */}
-      <main className="flex-1 flex items-center justify-center p-3 sm:p-5 lg:p-6 min-h-0">
-        <div className="w-full max-w-5xl xl:max-w-6xl bg-white rounded-2xl sm:rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-200/70 overflow-hidden grid grid-cols-1 lg:grid-cols-12 lg:max-h-[600px]">
+      <main className="flex-1 flex items-center justify-center p-2.5 sm:p-4 lg:py-3 lg:px-6 min-h-0">
+        <div className="w-full max-w-5xl xl:max-w-6xl bg-white rounded-2xl sm:rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-200/70 overflow-hidden grid grid-cols-1 lg:grid-cols-12 lg:h-[calc(100vh-88px)] lg:max-h-[640px]">
           
           {/* ==================================================== */}
-          {/* LEFT COLUMN: Agricultural Scenery & 4 Benefits       */}
+          {/* LEFT COLUMN: Agricultural Brand & 4 Pillars          */}
           {/* ==================================================== */}
           <div className="relative lg:col-span-5 flex flex-col justify-between p-6 sm:p-7 lg:p-8 text-white overflow-hidden bg-gray-950 min-h-[260px] lg:min-h-0">
             {/* Scenic Farmland Background */}
@@ -117,21 +118,21 @@ export default function Register() {
 
             {/* Top Pill: Join Community */}
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/70 backdrop-blur-md border border-emerald-400/30 text-[11px] font-semibold tracking-wide text-emerald-300">
-                <Leaf className="h-3 w-3 text-emerald-400" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/70 backdrop-blur-md border border-emerald-400/30 text-xs font-semibold tracking-wide text-emerald-300">
+                <Leaf className="h-3.5 w-3.5 text-emerald-400" />
                 <span>Join the Sagip-Ani Community</span>
               </div>
             </div>
 
             {/* Mission Headline & 4 Pillars */}
             <div className="relative z-10 my-auto py-3 lg:py-1">
-              <h1 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold text-white leading-tight tracking-tight mb-2">
+              <h1 className="text-xl sm:text-2xl lg:text-[28px] font-extrabold text-white leading-tight tracking-tight mb-2">
                 Turn Agricultural <br className="hidden sm:inline" />
                 Waste into{' '}
                 <span className="text-emerald-400">New Opportunities</span>
               </h1>
 
-              <p className="text-xs text-gray-200/90 font-normal leading-relaxed mb-4 max-w-sm">
+              <p className="text-xs sm:text-sm text-gray-200/90 font-normal leading-relaxed mb-4 max-w-sm">
                 Connect farmers with buyers of agricultural residues and rejected produce in Bukidnon.
               </p>
 
@@ -139,46 +140,46 @@ export default function Register() {
               <div className="space-y-2.5">
                 
                 {/* 1. Reduce Waste */}
-                <div className="flex items-start gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-emerald-400/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5">
-                    <Leaf className="w-3.5 h-3.5" />
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-emerald-400/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5">
+                    <Leaf className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-white">Reduce Waste</h3>
-                    <p className="text-[11px] text-gray-300/85 leading-tight">Give agricultural by-products new life.</p>
+                    <h3 className="text-sm font-bold text-white leading-tight">Reduce Waste</h3>
+                    <p className="text-xs text-gray-300/85 leading-tight">Give agricultural by-products new life.</p>
                   </div>
                 </div>
 
                 {/* 2. Earn More */}
-                <div className="flex items-start gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-emerald-400/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5">
-                    <Coins className="w-3.5 h-3.5" />
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-emerald-400/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5">
+                    <Coins className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-white">Earn More</h3>
-                    <p className="text-[11px] text-gray-300/85 leading-tight">Turn waste into additional income.</p>
+                    <h3 className="text-sm font-bold text-white leading-tight">Earn More</h3>
+                    <p className="text-xs text-gray-300/85 leading-tight">Turn waste into additional income.</p>
                   </div>
                 </div>
 
                 {/* 3. Support Local */}
-                <div className="flex items-start gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-emerald-400/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5">
-                    <Users className="w-3.5 h-3.5" />
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-emerald-400/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5">
+                    <Users className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-white">Support Local</h3>
-                    <p className="text-[11px] text-gray-300/85 leading-tight">Strengthen Bukidnon's agricultural communities.</p>
+                    <h3 className="text-sm font-bold text-white leading-tight">Support Local</h3>
+                    <p className="text-xs text-gray-300/85 leading-tight">Strengthen Bukidnon's agricultural communities.</p>
                   </div>
                 </div>
 
                 {/* 4. Build a Sustainable Future */}
-                <div className="flex items-start gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-emerald-400/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5">
-                    <ShieldCheck className="w-3.5 h-3.5" />
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-emerald-400/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5">
+                    <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-white">Build a Sustainable Future</h3>
-                    <p className="text-[11px] text-gray-300/85 leading-tight">For a cleaner environment and a greener tomorrow.</p>
+                    <h3 className="text-sm font-bold text-white leading-tight">Build a Sustainable Future</h3>
+                    <p className="text-xs text-gray-300/85 leading-tight">For a cleaner environment and a greener tomorrow.</p>
                   </div>
                 </div>
 
@@ -186,7 +187,7 @@ export default function Register() {
             </div>
 
             {/* Bottom Tagline */}
-            <div className="relative z-10 pt-2.5 border-t border-white/15 text-[11px] text-gray-300 flex items-center justify-between">
+            <div className="relative z-10 pt-2.5 border-t border-white/15 text-xs text-gray-300 flex items-center justify-between">
               <span>📍 Bukidnon, Northern Mindanao</span>
               <span>Sagip-Ani</span>
             </div>
@@ -194,12 +195,13 @@ export default function Register() {
 
           {/* ==================================================== */}
           {/* RIGHT COLUMN: Full Registration Form (7 cols)       */}
+          {/* Comfortable, bold sizing, perfectly balanced         */}
           {/* ==================================================== */}
-          <div className="relative lg:col-span-7 p-5 sm:p-7 lg:p-7 xl:p-8 flex flex-col justify-center bg-white overflow-y-auto">
+          <div className="relative lg:col-span-7 p-6 sm:p-7 lg:p-7 xl:p-8 flex flex-col justify-center bg-white overflow-y-auto">
             
             {/* Subtle Watermark */}
             <div className="pointer-events-none absolute right-0 bottom-0 select-none opacity-15 text-emerald-900/10 hidden sm:block">
-              <svg width="140" height="140" viewBox="0 0 200 200" fill="currentColor">
+              <svg width="150" height="150" viewBox="0 0 200 200" fill="currentColor">
                 <path d="M 180 180 C 130 180 90 140 90 90 C 140 90 180 130 180 180 Z" opacity="0.6" />
                 <path d="M 160 140 C 120 140 85 105 85 65 C 125 65 160 100 160 140 Z" opacity="0.4" />
                 <path d="M 200 120 C 160 120 130 90 130 50 C 170 50 200 80 200 120 Z" opacity="0.3" />
@@ -209,15 +211,15 @@ export default function Register() {
             <div className="max-w-lg w-full mx-auto">
               
               {/* Form Header */}
-              <div className="mb-3.5">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[11px] font-semibold border border-emerald-200/60 mb-1.5">
+              <div className="mb-3">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-200/60 mb-1">
                   <Sprout className="h-3 w-3 text-emerald-600" />
                   <span>Create Account</span>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-extrabold text-[#0d4722] tracking-tight">
+                <h2 className="text-2xl sm:text-[26px] font-extrabold text-[#0d4722] tracking-tight">
                   Get Started with Sagip-Ani
                 </h2>
-                <p className="text-xs text-gray-500 mt-0.5">
+                <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
                   Join our platform and be part of a more sustainable agricultural value chain in Bukidnon.
                 </p>
               </div>
@@ -225,7 +227,7 @@ export default function Register() {
               {/* Notice Banner */}
               {notice && (
                 <div
-                  className={`mb-3 p-2.5 rounded-xl text-xs flex items-start gap-2 transition-all ${
+                  className={`mb-3 p-2.5 rounded-xl text-xs sm:text-sm flex items-start gap-2 transition-all ${
                     notice.type === 'error'
                       ? 'bg-red-50 text-red-700 border border-red-200'
                       : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
@@ -240,12 +242,12 @@ export default function Register() {
                 
                 {/* Field: Full Name */}
                 <div>
-                  <label htmlFor="fullName" className="block text-[11px] font-semibold text-gray-700 mb-0.5">
+                  <label htmlFor="fullName" className="block text-xs font-semibold text-gray-700 mb-0.5">
                     Full Name <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                      <User className="h-3.5 w-3.5" />
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
+                      <User className="h-4 w-4" />
                     </div>
                     <input
                       id="fullName"
@@ -254,19 +256,19 @@ export default function Register() {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="Enter your full name"
-                      className="w-full rounded-lg border border-gray-300 bg-white pl-8.5 pr-3 py-1.5 sm:py-2 text-xs text-gray-900 placeholder:text-gray-400 shadow-2xs transition-all focus:border-emerald-600 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20"
+                      className="w-full rounded-xl border border-gray-300 bg-white pl-10 pr-3.5 py-2 sm:py-2.5 text-xs sm:text-sm text-gray-900 placeholder:text-gray-400 shadow-2xs transition-all focus:border-emerald-600 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20"
                     />
                   </div>
                 </div>
 
                 {/* Field: Email Address */}
                 <div>
-                  <label htmlFor="email" className="block text-[11px] font-semibold text-gray-700 mb-0.5">
+                  <label htmlFor="email" className="block text-xs font-semibold text-gray-700 mb-0.5">
                     Email Address <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                      <Mail className="h-3.5 w-3.5" />
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
+                      <Mail className="h-4 w-4" />
                     </div>
                     <input
                       id="email"
@@ -275,19 +277,19 @@ export default function Register() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email address"
-                      className="w-full rounded-lg border border-gray-300 bg-white pl-8.5 pr-3 py-1.5 sm:py-2 text-xs text-gray-900 placeholder:text-gray-400 shadow-2xs transition-all focus:border-emerald-600 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20"
+                      className="w-full rounded-xl border border-gray-300 bg-white pl-10 pr-3.5 py-2 sm:py-2.5 text-xs sm:text-sm text-gray-900 placeholder:text-gray-400 shadow-2xs transition-all focus:border-emerald-600 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20"
                     />
                   </div>
                 </div>
 
                 {/* Field: Phone Number */}
                 <div>
-                  <label htmlFor="phone" className="block text-[11px] font-semibold text-gray-700 mb-0.5">
+                  <label htmlFor="phone" className="block text-xs font-semibold text-gray-700 mb-0.5">
                     Phone Number <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                      <Phone className="h-3.5 w-3.5" />
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
+                      <Phone className="h-4 w-4" />
                     </div>
                     <input
                       id="phone"
@@ -296,21 +298,21 @@ export default function Register() {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+63 9XX XXX XXXX"
-                      className="w-full rounded-lg border border-gray-300 bg-white pl-8.5 pr-3 py-1.5 sm:py-2 text-xs text-gray-900 placeholder:text-gray-400 shadow-2xs transition-all focus:border-emerald-600 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20"
+                      className="w-full rounded-xl border border-gray-300 bg-white pl-10 pr-3.5 py-2 sm:py-2.5 text-xs sm:text-sm text-gray-900 placeholder:text-gray-400 shadow-2xs transition-all focus:border-emerald-600 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20"
                     />
                   </div>
                 </div>
 
-                {/* Row: Password & Confirm Password (2 columns on sm+) */}
+                {/* Row: Password & Confirm Password (2 columns) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {/* Password */}
                   <div>
-                    <label htmlFor="regPassword" className="block text-[11px] font-semibold text-gray-700 mb-0.5">
+                    <label htmlFor="regPassword" className="block text-xs font-semibold text-gray-700 mb-0.5">
                       Password <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                        <Lock className="h-3.5 w-3.5" />
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
+                        <Lock className="h-4 w-4" />
                       </div>
                       <input
                         id="regPassword"
@@ -319,27 +321,27 @@ export default function Register() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Enter your password"
-                        className="w-full rounded-lg border border-gray-300 bg-white pl-8.5 pr-8 py-1.5 sm:py-2 text-xs text-gray-900 placeholder:text-gray-400 shadow-2xs transition-all focus:border-emerald-600 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20"
+                        className="w-full rounded-xl border border-gray-300 bg-white pl-10 pr-9 py-2 sm:py-2.5 text-xs sm:text-sm text-gray-900 placeholder:text-gray-400 shadow-2xs transition-all focus:border-emerald-600 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
                         aria-label={showPassword ? 'Hide password' : 'Show password'}
-                        className="absolute inset-y-0 right-0 flex items-center pr-2.5 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
                       >
-                        {showPassword ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
                     </div>
                   </div>
 
                   {/* Confirm Password */}
                   <div>
-                    <label htmlFor="confirmPassword" className="block text-[11px] font-semibold text-gray-700 mb-0.5">
+                    <label htmlFor="confirmPassword" className="block text-xs font-semibold text-gray-700 mb-0.5">
                       Confirm Password <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                        <Lock className="h-3.5 w-3.5" />
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
+                        <Lock className="h-4 w-4" />
                       </div>
                       <input
                         id="confirmPassword"
@@ -348,15 +350,15 @@ export default function Register() {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="Confirm your password"
-                        className="w-full rounded-lg border border-gray-300 bg-white pl-8.5 pr-8 py-1.5 sm:py-2 text-xs text-gray-900 placeholder:text-gray-400 shadow-2xs transition-all focus:border-emerald-600 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20"
+                        className="w-full rounded-xl border border-gray-300 bg-white pl-10 pr-9 py-2 sm:py-2.5 text-xs sm:text-sm text-gray-900 placeholder:text-gray-400 shadow-2xs transition-all focus:border-emerald-600 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20"
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                         aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
-                        className="absolute inset-y-0 right-0 flex items-center pr-2.5 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
                       >
-                        {showConfirmPassword ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                        {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
                     </div>
                   </div>
@@ -364,7 +366,7 @@ export default function Register() {
 
                 {/* Role Selection: Supplier vs Buyer */}
                 <div>
-                  <span className="block text-[11px] font-semibold text-gray-700 mb-1.5">
+                  <span className="block text-xs font-semibold text-gray-700 mb-1">
                     Select Your Role <span className="text-red-500">*</span>
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -373,21 +375,21 @@ export default function Register() {
                     <button
                       type="button"
                       onClick={() => setRole('supplier')}
-                      className={`flex items-center justify-between p-2.5 rounded-xl border text-left cursor-pointer transition-all duration-150 ${
+                      className={`flex items-center justify-between p-2.5 sm:p-3 rounded-xl border text-left cursor-pointer transition-all duration-150 ${
                         role === 'supplier'
                           ? 'border-emerald-700 bg-emerald-50/70 shadow-2xs ring-1 ring-emerald-700/30'
                           : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/50'
                       }`}
                     >
-                      <div className="flex items-center gap-2">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                      <div className="flex items-center gap-2.5">
+                        <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
                           role === 'supplier' ? 'bg-[#0d4722] text-white' : 'bg-gray-100 text-gray-600'
                         }`}>
-                          <Sprout className="w-4 h-4" />
+                          <Sprout className="w-4.5 h-4.5" />
                         </div>
                         <div>
-                          <div className="text-xs font-bold text-gray-900 leading-tight">Supplier</div>
-                          <div className="text-[10px] text-gray-500 leading-tight">Farmer / Cooperative / Packing House</div>
+                          <div className="text-xs sm:text-sm font-bold text-gray-900 leading-tight">Supplier</div>
+                          <div className="text-[11px] text-gray-500 leading-tight mt-0.5">Farmer / Cooperative / Packing House</div>
                         </div>
                       </div>
                       <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ml-1.5 ${
@@ -401,21 +403,21 @@ export default function Register() {
                     <button
                       type="button"
                       onClick={() => setRole('buyer')}
-                      className={`flex items-center justify-between p-2.5 rounded-xl border text-left cursor-pointer transition-all duration-150 ${
+                      className={`flex items-center justify-between p-2.5 sm:p-3 rounded-xl border text-left cursor-pointer transition-all duration-150 ${
                         role === 'buyer'
                           ? 'border-emerald-700 bg-emerald-50/70 shadow-2xs ring-1 ring-emerald-700/30'
                           : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/50'
                       }`}
                     >
-                      <div className="flex items-center gap-2">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                      <div className="flex items-center gap-2.5">
+                        <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
                           role === 'buyer' ? 'bg-[#0d4722] text-white' : 'bg-gray-100 text-gray-600'
                         }`}>
-                          <Building2 className="w-4 h-4" />
+                          <Building2 className="w-4.5 h-4.5" />
                         </div>
                         <div>
-                          <div className="text-xs font-bold text-gray-900 leading-tight">Buyer</div>
-                          <div className="text-[10px] text-gray-500 leading-tight">Processor / Business / Organization</div>
+                          <div className="text-xs sm:text-sm font-bold text-gray-900 leading-tight">Buyer</div>
+                          <div className="text-[11px] text-gray-500 leading-tight mt-0.5">Processor / Business / Organization</div>
                         </div>
                       </div>
                       <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ml-1.5 ${
@@ -432,7 +434,7 @@ export default function Register() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full flex items-center justify-center gap-2 px-5 py-2.5 sm:py-2.5 rounded-xl font-semibold text-white bg-[#0d4722] hover:bg-[#072c15] shadow-xs hover:shadow-sm transition-all duration-150 cursor-pointer hover:translate-y-[-1px] active:translate-y-0 disabled:opacity-70 disabled:cursor-not-allowed focus:outline-hidden focus-visible:ring-2 focus-visible:ring-emerald-700 text-xs sm:text-sm mt-1"
+                  className="w-full flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 rounded-xl font-semibold text-white bg-[#0d4722] hover:bg-[#072c15] shadow-sm shadow-emerald-950/20 hover:shadow-md transition-all duration-150 cursor-pointer hover:translate-y-[-1px] active:translate-y-0 disabled:opacity-70 disabled:cursor-not-allowed focus:outline-hidden focus-visible:ring-2 focus-visible:ring-emerald-700 text-sm mt-1"
                 >
                   {isLoading ? (
                     <span className="inline-flex items-center gap-2">
@@ -449,12 +451,12 @@ export default function Register() {
               </form>
 
               {/* Divider: OR */}
-              <div className="relative my-3">
+              <div className="relative my-3 sm:my-3.5">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-200" />
                 </div>
-                <div className="relative flex justify-center text-[10px] uppercase tracking-wider">
-                  <span className="bg-white px-2 text-gray-400 font-semibold">OR</span>
+                <div className="relative flex justify-center text-xs uppercase tracking-wider">
+                  <span className="bg-white px-2.5 text-gray-400 font-semibold">OR</span>
                 </div>
               </div>
 
@@ -462,7 +464,7 @@ export default function Register() {
               <button
                 type="button"
                 onClick={handleGoogleSignUp}
-                className="w-full flex items-center justify-center gap-2.5 px-4 py-2 rounded-xl font-semibold text-gray-700 bg-white hover:bg-gray-50 border border-gray-300 shadow-2xs hover:shadow-xs transition-all duration-150 cursor-pointer hover:translate-y-[-1px] active:translate-y-0 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-gray-400 text-xs"
+                className="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-xl font-semibold text-gray-700 bg-white hover:bg-gray-50 border border-gray-300 shadow-2xs hover:shadow-xs transition-all duration-150 cursor-pointer hover:translate-y-[-1px] active:translate-y-0 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-gray-400 text-xs sm:text-sm"
               >
                 <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24">
                   <path
@@ -486,7 +488,7 @@ export default function Register() {
               </button>
 
               {/* Login Link Footer */}
-              <div className="mt-3 text-center text-xs text-gray-600">
+              <div className="mt-3 sm:mt-3.5 text-center text-xs sm:text-sm text-gray-600">
                 Already have an account?{' '}
                 <Link
                   to="/auth/login"
@@ -504,9 +506,9 @@ export default function Register() {
       </main>
 
       {/* ======================================================== */}
-      {/* 3. SUBTLE FOOTER                                         */}
+      {/* 3. SUBTLE COMPACT FOOTER                                 */}
       {/* ======================================================== */}
-      <footer className="shrink-0 text-center py-2 text-[11px] text-gray-400 border-t border-gray-100 bg-white/60 flex items-center justify-center gap-1.5 px-4">
+      <footer className="shrink-0 text-center py-1.5 text-[11px] text-gray-400 border-t border-gray-100 bg-white/60 flex items-center justify-center gap-1.5 px-4">
         <span>© {new Date().getFullYear()} Sagip-Ani</span>
         <span>•</span>
         <span>Waste-to-Worth Exchange</span>
