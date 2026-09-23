@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import PlaceholderPage from './pages/PlaceholderPage';
 
 function App() {
@@ -21,10 +22,7 @@ function App() {
           element={<PlaceholderPage title="Platform Features" description="Explore our waste-to-worth exchange features and matching capabilities." />} 
         />
         <Route path="/auth/login" element={<Login />} />
-        <Route 
-          path="/auth/register" 
-          element={<PlaceholderPage title="Registration" description="Create an account as an agricultural Supplier or Buyer in Bukidnon." />} 
-        />
+        <Route path="/auth/register" element={<Register />} />
         <Route path="*" element={<Landing />} />
       </Routes>
     </BrowserRouter>
