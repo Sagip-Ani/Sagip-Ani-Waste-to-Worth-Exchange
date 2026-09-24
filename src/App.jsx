@@ -3,6 +3,7 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import PlaceholderPage from './pages/PlaceholderPage';
+import TestMatch from './pages/TestMatch';
 
 // Supplier views
 import SupplierDashboard from './pages/supplier/Dashboard';
@@ -36,6 +37,9 @@ function App() {
         {/* Auth Routes */}
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Register />} />
+
+        {/* Test Route */}
+        <Route path="/test-match" element={<TestMatch />} />
 
         {/* Supplier / Seller Flow Routes */}
         <Route path="/supplier/dashboard" element={<SupplierDashboard />} />

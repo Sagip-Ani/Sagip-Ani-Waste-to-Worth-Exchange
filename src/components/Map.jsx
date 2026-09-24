@@ -81,13 +81,46 @@ export default function Map({
     normalizedPoints.forEach((point) => {
       const isBuyer = point.role === 'buyer' || point.type === 'buyer';
       const color = isBuyer ? '#2563eb' : '#15803d';
-      const marker = L.circleMarker([point.lat, point.lng], {
-        radius: 9,
-        fillColor: color,
-        color: '#ffffff',
-        weight: 3,
-        fillOpacity: 0.95
-      }).addTo(map);
+      
+      // Create custom pin icon
+      const pinIcon = L.divIcon({
+        className: 'custom-pin',
+        html: `
+          <div style="
+            position: relative;
+            width: 32px;
+            height: 32px;
+          ">
+            <div style="
+              position: absolute;
+              bottom: 0;
+              left: 50%;
+              transform: translateX(-50%);
+              width: 0;
+              height: 0;
+              border-left: 12px solid transparent;
+              border-right: 12px solid transparent;
+              border-top: 20px solid ${color};
+            "></div>
+            <div style="
+              position: absolute;
+              bottom: 16px;
+              left: 50%;
+              transform: translateX(-50%);
+              width: 14px;
+              height: 14px;
+              background: white;
+              border-radius: 50%;
+              border: 2px solid ${color};
+            "></div>
+          </div>
+        `,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32]
+      });
+      
+      const marker = L.marker([point.lat, point.lng], { icon: pinIcon }).addTo(map);
 
       marker.bindPopup(`
         <div style="min-width:160px;font-family:system-ui,sans-serif">

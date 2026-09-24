@@ -12,16 +12,66 @@ export default function BuyerMap() {
     async function load() {
       const { data: authData, error: authError } = await supabase.auth.getUser();
       if (authError || !authData?.user) { setError('Please log in to view the supplier map.'); setLoading(false); return; }
-      const { data, error: queryError } = await supabase.from('matches').select(`
-        id, score, distance_km,
-        material_listings!inner (id, material_type, quantity_kg, location, supplier_id),
-        buyer_demands!inner (id, material_type, quantity_needed_kg, location, buyer_id)
-      `).eq('buyer_demands.buyer_id', authData.user.id).order('score', { ascending: false });
-      if (queryError) setError(queryError.message);
-      else setPoints((data || []).map((match) => {
-        const location = parseLocation(match.material_listings?.location);
-        return location ? { ...location, role: 'supplier', material_type: match.material_listings.material_type, quantity: match.material_listings.quantity_kg, distance_km: match.distance_km, label: `Match score: ${formatScore(match.score)}` } : null;
-      }).filter(Boolean));
+      
+      try {
+        // Try using the match_map_points view first
+        const { data: viewData, error: viewError } = await supabase.from('match_map_points').select('*')
+          .eq('buyer_id', authData.user.id)
+          .order('score', { ascending: false });
+        
+        if (!viewError && viewData && viewData.length > 0) {
+          setPoints(viewData.map((match) => ({
+            lat: match.supplier_latitude,
+            lng: match.supplier_longitude,
+            role: 'supplier',
+            material_type: match.listing_material_type,
+            quantity: match.quantity_kg,
+            distance_km: match.distance_km,
+            label: `Match score: ${formatScore(match.score)}`
+          })));
+        } else {
+          // Fallback: Use the matches table and manually parse location
+          const { data: matchData, error: matchError } = await supabase.from('matches').select(`
+            id, score, distance_km,
+            material_listings!inner (id, material_type, quantity_kg, supplier_id),
+            buyer_demands!inner (id, material_type, quantity_needed_kg, buyer_id)
+          `).eq('buyer_demands.buyer_id', authData.user.id).order('score', { ascending: false });
+          
+          if (matchError) throw matchError;
+          
+          // Also get supplier listing locations from the material_listing_map_points view
+          const listingIds = matchData?.map(m => m.material_listings?.id).filter(Boolean) || [];
+          let listingLocations = {};
+          
+          if (listingIds.length > 0) {
+            const { data: locationData } = await supabase.from('material_listing_map_points')
+              .select('id, latitude, longitude')
+              .in('id', listingIds);
+            
+            if (locationData) {
+              listingLocations = locationData.reduce((acc, loc) => {
+                acc[loc.id] = { lat: loc.latitude, lng: loc.longitude };
+                return acc;
+              }, {});
+            }
+          }
+          
+          setPoints((matchData || []).map((match) => {
+            const location = listingLocations[match.material_listings?.id];
+            return location ? {
+              ...location,
+              role: 'supplier',
+              material_type: match.material_listings.material_type,
+              quantity: match.material_listings.quantity_kg,
+              distance_km: match.distance_km,
+              label: `Match score: ${formatScore(match.score)}`
+            } : null;
+          }).filter(Boolean));
+        }
+      } catch (err) {
+        setError(err.message);
+      }
+      
       setLoading(false);
     }
     load();

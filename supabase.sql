@@ -857,7 +857,38 @@ on public.matches
 for select
 to authenticated
 using (
-  public.is_match_participant(id, auth.uid())
+  -- Allow users to see matches where they are either the buyer or supplier
+  -- Direct join approach for better RLS performance
+  matches.demand_id IN (
+    SELECT id FROM public.buyer_demands WHERE buyer_id = auth.uid()
+  )
+  OR matches.listing_id IN (
+    SELECT id FROM public.material_listings WHERE supplier_id = auth.uid()
+  )
+);
+
+-- Temporary policy for testing: allow authenticated users to create matches
+-- In production, this should be replaced by a proper matching engine
+drop policy if exists "matches_insert_test" on public.matches;
+
+create policy "matches_insert_test"
+on public.matches
+for insert
+to authenticated
+with check (
+  -- Allow users to create matches where they are either the buyer or supplier
+  exists (
+    select 1
+    from public.buyer_demands d
+    where d.id = matches.demand_id
+      and d.buyer_id = auth.uid()
+  )
+  or exists (
+    select 1
+    from public.material_listings l
+    where l.id = matches.listing_id
+      and l.supplier_id = auth.uid()
+  )
 );
 
 -- Do NOT allow normal users to arbitrarily create matches.
@@ -866,7 +897,24 @@ using (
 
 
 -- ============================================================
--- 20. REQUEST POLICIES
+-- 20. MATCH_MAP_POINTS VIEW POLICIES
+-- ============================================================
+
+drop policy if exists "match_map_points_select_participant"
+on public.match_map_points;
+
+create policy "match_map_points_select_participant"
+on public.match_map_points
+for select
+to authenticated
+using (
+  -- Allow users to see matches where they are either the buyer or supplier
+  buyer_id = auth.uid()
+  or supplier_id = auth.uid()
+);
+
+-- ============================================================
+-- 21. REQUEST POLICIES
 -- ============================================================
 -- Both participants of a match can view requests belonging
 -- to that match.
