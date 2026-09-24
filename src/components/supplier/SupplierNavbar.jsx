@@ -47,6 +47,9 @@ export default function SupplierNavbar() {
             <NavLink to="/supplier/matches" className={navLinkClass}>
               Nearby Matches
             </NavLink>
+            <NavLink to="/supplier/map" className={navLinkClass}>
+              Buyer Map
+            </NavLink>
           </nav>
         </div>
 

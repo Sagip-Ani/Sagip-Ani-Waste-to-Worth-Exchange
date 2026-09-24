@@ -65,15 +65,19 @@ export default function Login() {
       }
 
       setNotice({
-        type: 'success',
-        message: `Welcome back, ${profile?.full_name || 'Member'}! Signed in successfully.`
-      });
+  type: 'success',
+  message: `Welcome back, ${profile?.full_name || 'Member'}! Signed in successfully.`
+});
 
-      // Redirect after brief delay (role-based or landing)
-      setTimeout(() => {
-        // Can route to role dashboard or home
-        navigate('/');
-      }, 1500);
+setTimeout(() => {
+  if (profile?.role === 'buyer') {
+    navigate('/buyer/dashboard');
+  } else if (profile?.role === 'supplier') {
+    navigate('/supplier/dashboard');
+  } else {
+    navigate('/');
+  }
+}, 1000);
 
     } catch (err) {
       setIsLoading(false);
