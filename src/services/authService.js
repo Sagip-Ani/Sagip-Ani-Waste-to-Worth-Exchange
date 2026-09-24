@@ -4,9 +4,7 @@ import { profileService } from './profileService';
 export const authService = {
   /**
    * Register a new user with Supabase Auth.
-   * Profile is auto-created by the database trigger `handle_new_user()`
-   * on `auth.users` insert. This avoids RLS issues during signup when
-   * email confirmation is enabled (auth.uid() may be null initially).
+   * Profile is created manually after successful auth signup.
    */
   async signUp({ fullName, email, phone, password, role, roleDetails = {} }) {
     if (!isSupabaseConfigured) {
@@ -17,7 +15,7 @@ export const authService = {
     }
 
     try {
-      // Supabase Auth signup - profile created automatically by DB trigger
+      // Supabase Auth signup
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: email.trim(),
         password,
@@ -33,8 +31,19 @@ export const authService = {
       if (authError) throw authError;
       if (!authData.user) throw new Error('Registration failed. No user was returned by authentication service.');
 
-      // Profile creation is handled by the database trigger
-      // No need to call profileService.createProfile() here
+      // Create profile manually after successful auth
+      const profileError = await profileService.createProfile({
+        userId: authData.user.id,
+        fullName: fullName.trim(),
+        role,
+        contactNumber: phone.trim(),
+        roleDetails
+      });
+
+      if (profileError) {
+        console.error('[Sagip-Ani] Profile creation failed:', profileError);
+        // Continue anyway - auth was successful, profile can be created later
+      }
 
       return { data: authData, error: null };
     } catch (err) {

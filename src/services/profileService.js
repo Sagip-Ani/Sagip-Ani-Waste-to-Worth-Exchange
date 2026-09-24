@@ -73,8 +73,7 @@ export const profileService = {
           id: userId,
           full_name: fullName,
           role,
-          contact_number: contactNumber,
-          created_at: new Date().toISOString()
+          contact_number: contactNumber
         });
 
       if (profileError) throw profileError;
