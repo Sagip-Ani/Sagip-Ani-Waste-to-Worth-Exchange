@@ -22,7 +22,7 @@ export const profileService = {
         .from('profiles')
         .select('*')
         .eq('id', userId)
-        .single();
+        .maybeSingle(); // Use maybeSingle to avoid throwing on no rows
 
       if (profileError) throw profileError;
       if (!profile) return { data: null, error: null };

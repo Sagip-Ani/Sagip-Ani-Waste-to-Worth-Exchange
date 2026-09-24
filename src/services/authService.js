@@ -57,6 +57,7 @@ export const authService = {
     if (!isSupabaseConfigured) {
       return {
         data: null,
+        profile: null,
         error: new Error('Supabase authentication is not configured yet. Please configure your .env file with VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY.')
       };
     }
@@ -73,7 +74,37 @@ export const authService = {
       let profile = null;
       if (data?.user?.id) {
         const profileRes = await profileService.getProfile(data.user.id);
+        
+        if (profileRes.error) {
+          console.warn('[Sagip-Ani] Error fetching profile:', profileRes.error);
+        }
+        
         profile = profileRes.data;
+        
+        // If profile doesn't exist, create a default one based on user metadata
+        if (!profile) {
+          console.log('[Sagip-Ani] Profile not found, attempting to create from user metadata');
+          const userRole = data.user.user_metadata?.role || 'supplier'; // Default to supplier
+          const fullName = data.user.user_metadata?.full_name || data.user.email?.split('@')[0] || 'User';
+          const contactNumber = data.user.user_metadata?.contact_number || '';
+          
+          const createRes = await profileService.createProfile({
+            userId: data.user.id,
+            fullName,
+            role: userRole,
+            contactNumber,
+            roleDetails: {}
+          });
+          
+          if (!createRes.error) {
+            // Fetch the newly created profile
+            const newProfileRes = await profileService.getProfile(data.user.id);
+            profile = newProfileRes.data;
+            console.log('[Sagip-Ani] Profile created successfully:', profile?.role);
+          } else {
+            console.error('[Sagip-Ani] Failed to create profile:', createRes.error);
+          }
+        }
       }
 
       return { data, profile, error: null };
