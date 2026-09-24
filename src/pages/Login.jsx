@@ -64,20 +64,32 @@ export default function Login() {
         return;
       }
 
+      // Debug logging
+      console.log('[Sagip-Ani] Login successful, profile:', profile);
+
       setNotice({
   type: 'success',
   message: `Welcome back, ${profile?.full_name || 'Member'}! Signed in successfully.`
 });
 
-setTimeout(() => {
-  if (profile?.role === 'buyer') {
-    navigate('/buyer/dashboard');
-  } else if (profile?.role === 'supplier') {
-    navigate('/supplier/dashboard');
-  } else {
-    navigate('/');
-  }
-}, 1000);
+      // Navigate immediately based on role (no artificial delay)
+      if (profile?.role === 'buyer') {
+        navigate('/buyer/dashboard', { replace: true });
+      } else if (profile?.role === 'supplier') {
+        navigate('/supplier/dashboard', { replace: true });
+      } else if (profile) {
+        // Profile exists but role is unexpected - default to supplier dashboard
+        console.warn('[Sagip-Ani] Unexpected role:', profile.role, '- defaulting to supplier dashboard');
+        navigate('/supplier/dashboard', { replace: true });
+      } else {
+        // No profile found - redirect to landing with notice
+        console.warn('[Sagip-Ani] No profile found after login, redirecting to landing');
+        setNotice({
+          type: 'error',
+          message: 'Account profile not found. Please contact support or try registering again.'
+        });
+        navigate('/', { replace: true });
+      }
 
     } catch (err) {
       setIsLoading(false);
