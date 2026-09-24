@@ -8,6 +8,11 @@ import PlaceholderPage from './pages/PlaceholderPage';
 import SupplierDashboard from './pages/supplier/Dashboard';
 import NewListing from './pages/supplier/NewListing';
 import Matches from './pages/supplier/Matches';
+import SupplierMap from './pages/supplier/Map';
+import BuyerDashboard from './pages/buyer/Dashboard';
+import NewDemand from './pages/buyer/NewDemand';
+import BuyerMatches from './pages/buyer/Matches';
+import BuyerMap from './pages/buyer/Map';
 
 function App() {
   return (
@@ -36,6 +41,13 @@ function App() {
         <Route path="/supplier/dashboard" element={<SupplierDashboard />} />
         <Route path="/supplier/new-listing" element={<NewListing />} />
         <Route path="/supplier/matches" element={<Matches />} />
+        <Route path="/supplier/map" element={<SupplierMap />} />
+
+        {/* Buyer Flow Routes */}
+        <Route path="/buyer/dashboard" element={<BuyerDashboard />} />
+        <Route path="/buyer/new-demand" element={<NewDemand />} />
+        <Route path="/buyer/matches" element={<BuyerMatches />} />
+        <Route path="/buyer/map" element={<BuyerMap />} />
 
         {/* Catch-all fallback */}
         <Route path="*" element={<Landing />} />
