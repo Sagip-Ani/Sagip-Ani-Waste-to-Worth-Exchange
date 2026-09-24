@@ -16,40 +16,13 @@ export default function SupplierMap() {
       console.log('[Supplier Map] Loading for user:', authData.user.id);
       
       try {
-        // Try using match_map_points view first - it has lat/lng already parsed
-        const { data: viewData, error: viewError } = await supabase.from('match_map_points')
-          .select('*')
-          .eq('supplier_id', authData.user.id)
-          .order('score', { ascending: false });
-        
-        console.log('[Supplier Map] Match map points view data:', viewData, 'Error:', viewError);
-        
-        if (!viewError && viewData && viewData.length > 0) {
-          const points = viewData.map((match) => ({
-            lat: match.buyer_latitude,
-            lng: match.buyer_longitude,
-            role: 'buyer',
-            material_type: match.demand_material_type,
-            quantity: match.quantity_needed_kg,
-            distance_km: match.distance_km,
-            label: `Match score: ${formatScore(match.score)}`
-          }));
-          
-          console.log('[Supplier Map] Final points from view:', points);
-          setPoints(points);
-          setLoading(false);
-          return;
-        }
-        
-        console.log('[Supplier Map] View approach failed, trying alternative');
-        
-        // Alternative: Try a direct query without complex joins
+        // Simple approach: Get matches with basic fields, then fetch related data separately
         const { data: matchData, error: matchError } = await supabase
           .from('matches')
           .select('id, score, distance_km, demand_id, listing_id')
           .order('score', { ascending: false });
         
-        console.log('[Supplier Map] Match data:', matchData, 'Error:', matchError);
+        console.log('[Supplier Map] Simple match data:', matchData, 'Error:', matchError);
         
         if (matchError) throw matchError;
         
@@ -59,11 +32,13 @@ export default function SupplierMap() {
           return;
         }
         
-        // Get user's listings
+        // Get user's listings to filter relevant matches
         const { data: userListings } = await supabase
           .from('material_listings')
           .select('id, material_type, quantity_kg')
           .eq('supplier_id', authData.user.id);
+        
+        console.log('[Supplier Map] User listings:', userListings);
         
         const userListingIds = userListings?.map(l => l.id) || [];
         const relevantMatches = matchData.filter(m => userListingIds.includes(m.listing_id));
@@ -76,8 +51,7 @@ export default function SupplierMap() {
           return;
         }
         
-        // For now, create placeholder points using supplier's listing location
-        // This is a temporary workaround until RLS is properly configured
+        // Get supplier listing locations
         const { data: supplierListings } = await supabase
           .from('material_listing_map_points')
           .select('id, latitude, longitude')

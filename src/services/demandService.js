@@ -55,10 +55,63 @@ export const demandService = {
 
   async deleteDemand(id) {
     if (!isSupabaseConfigured) return { error: null };
+    
+    const { data: authData } = await supabase.auth.getUser();
+    if (!authData?.user) return { error: new Error('Not authenticated') };
+
     return await supabase
       .from('buyer_demands')
       .delete()
-      .eq('id', id);
+      .eq('id', id)
+      .eq('buyer_id', authData.user.id);
+  },
+
+  /**
+   * Get a single demand by ID
+   */
+  async getDemandById(id) {
+    if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured') };
+
+    const { data: authData } = await supabase.auth.getUser();
+    if (!authData?.user) return { data: null, error: new Error('Not authenticated') };
+
+    return await supabase
+      .from('buyer_demands')
+      .select('*')
+      .eq('id', id)
+      .eq('buyer_id', authData.user.id)
+      .single();
+  },
+
+  /**
+   * Update an existing demand
+   */
+  async updateDemand(id, updates) {
+    if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured') };
+
+    const { data: authData } = await supabase.auth.getUser();
+    if (!authData?.user) return { data: null, error: new Error('Not authenticated') };
+
+    // Convert location if provided as object
+    const finalUpdates = { ...updates };
+    if (updates.location && typeof updates.location === 'object') {
+      finalUpdates.location = `POINT(${updates.location.lng} ${updates.location.lat})`;
+    }
+
+    return await supabase
+      .from('buyer_demands')
+      .update(finalUpdates)
+      .eq('id', id)
+      .eq('buyer_id', authData.user.id)
+      .select()
+      .single();
+  },
+
+  /**
+   * Update demand status
+   */
+  async updateDemandStatus(id, status) {
+    return this.updateDemand(id, { status });
   }
 };
 

@@ -1,35 +1,59 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
 
 /**
- * Service for material_listings table
- * RLS: auth.uid() = supplier_id
+ * Service for supplier material listings CRUD operations
  */
 export const listingService = {
+  /**
+   * Get all listings for the current supplier
+   */
   async getMyListings() {
     if (!isSupabaseConfigured) return { data: [], error: null };
+    
+    const { data: authData } = await supabase.auth.getUser();
+    if (!authData?.user) return { data: [], error: new Error('Not authenticated') };
+
     return await supabase
       .from('material_listings')
       .select('*')
+      .eq('supplier_id', authData.user.id)
       .order('created_at', { ascending: false });
   },
 
+  /**
+   * Get a single listing by ID
+   */
+  async getListingById(id) {
+    if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured') };
+
+    const { data: authData } = await supabase.auth.getUser();
+    if (!authData?.user) return { data: null, error: new Error('Not authenticated') };
+
+    return await supabase
+      .from('material_listings')
+      .select('*')
+      .eq('id', id)
+      .eq('supplier_id', authData.user.id)
+      .single();
+  },
+
+  /**
+   * Create a new listing
+   */
   async createListing({ materialType, quantityKg, location, availableFrom, availableUntil }) {
-    if (!isSupabaseConfigured) {
-      return { data: null, error: new Error('Supabase is not configured') };
-    }
+    if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured') };
 
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error('You must be signed in to create a listing.');
+    const { data: authData } = await supabase.auth.getUser();
+    if (!authData?.user) return { data: null, error: new Error('Not authenticated') };
 
-    // Ensure location is a valid PostGIS point string
-    const pointLocation = typeof location === 'string' 
-      ? location 
+    const pointLocation = typeof location === 'string'
+      ? location
       : `POINT(${location.lng} ${location.lat})`;
 
     return await supabase
       .from('material_listings')
       .insert({
-        supplier_id: user.id,
+        supplier_id: authData.user.id,
         material_type: materialType,
         quantity_kg: quantityKg,
         location: pointLocation,
@@ -41,26 +65,50 @@ export const listingService = {
       .single();
   },
 
+  /**
+   * Update an existing listing
+   */
   async updateListing(id, updates) {
-    if (!isSupabaseConfigured) return { data: null, error: null };
-    
+    if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured') };
+
+    const { data: authData } = await supabase.auth.getUser();
+    if (!authData?.user) return { data: null, error: new Error('Not authenticated') };
+
     // Convert location if provided as object
+    const finalUpdates = { ...updates };
     if (updates.location && typeof updates.location === 'object') {
-      updates.location = `POINT(${updates.location.lng} ${updates.location.lat})`;
+      finalUpdates.location = `POINT(${updates.location.lng} ${updates.location.lat})`;
     }
-    
+
     return await supabase
       .from('material_listings')
-      .update(updates)
-      .eq('id', id);
+      .update(finalUpdates)
+      .eq('id', id)
+      .eq('supplier_id', authData.user.id)
+      .select()
+      .single();
   },
 
+  /**
+   * Delete a listing
+   */
   async deleteListing(id) {
-    if (!isSupabaseConfigured) return { error: null };
+    if (!isSupabaseConfigured) return { error: new Error('Supabase is not configured') };
+
+    const { data: authData } = await supabase.auth.getUser();
+    if (!authData?.user) return { error: new Error('Not authenticated') };
+
     return await supabase
       .from('material_listings')
       .delete()
-      .eq('id', id);
+      .eq('id', id)
+      .eq('supplier_id', authData.user.id);
+  },
+
+  /**
+   * Update listing status
+   */
+  async updateListingStatus(id, status) {
+    return this.updateListing(id, { status });
   }
 };
-

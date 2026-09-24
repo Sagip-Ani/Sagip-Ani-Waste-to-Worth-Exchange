@@ -51,7 +51,13 @@ function DemandCard({ demand }) {
       <h3 className="text-lg font-bold text-gray-900">{demand.material_type}</h3><p className="text-2xl font-extrabold text-[#143d2b] mt-1">{Number(demand.quantity_needed_kg).toLocaleString()} <span className="text-sm font-normal text-gray-500">kg</span></p>
       <div className="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-600 space-y-1.5"><div className="flex justify-between"><span>Maximum distance</span><span className="font-semibold text-gray-900">{demand.max_distance_km} km</span></div><div className="flex justify-between"><span>Posted</span><span className="font-semibold text-gray-900">{demand.created_at ? new Date(demand.created_at).toLocaleDateString() : '—'}</span></div></div>
     </div>
-    <div className="p-4 bg-gray-50 border-t border-gray-100"><Link to={`/buyer/matches?demand=${demand.id}`} className="text-xs font-bold text-[#143d2b] hover:underline">View Supplier Matches →</Link></div>
+    <div className="p-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+      <span className="text-[11px] font-medium text-gray-500">Geotagged Demand</span>
+      <div className="flex items-center gap-3">
+        <Link to={`/buyer/edit-demand/${demand.id}`} className="text-xs font-bold text-[#143d2b] hover:text-[#0e3021] hover:underline">Edit</Link>
+        <Link to={`/buyer/matches?demand=${demand.id}`} className="text-xs font-bold text-[#143d2b] hover:text-[#0e3021] hover:underline flex items-center gap-1">View Matches <span>→</span></Link>
+      </div>
+    </div>
   </div>;
 }
 

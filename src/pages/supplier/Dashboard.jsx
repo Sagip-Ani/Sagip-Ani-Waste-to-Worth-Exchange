@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../../lib/supabaseClient';
+import { listingService } from '../../services/listingService';
 import SupplierNavbar from '../../components/supplier/SupplierNavbar';
 
 export default function SupplierDashboard() {
@@ -9,20 +9,11 @@ export default function SupplierDashboard() {
 
   useEffect(() => {
     async function fetchListings() {
-      const { data: authData } = await supabase.auth.getUser();
-      if (!authData?.user) {
-        setLoading(false);
-        return;
-      }
-
-      const { data, error } = await supabase
-        .from('material_listings')
-        .select('*')
-        .eq('supplier_id', authData.user.id)
-        .order('created_at', { ascending: false });
-
-      if (!error && data) {
-        setListings(data);
+      const { data, error } = await listingService.getMyListings();
+      if (error) {
+        console.error('Error fetching listings:', error);
+      } else {
+        setListings(data || []);
       }
       setLoading(false);
     }
@@ -173,12 +164,20 @@ export default function SupplierDashboard() {
 
                   <div className="p-4 bg-gray-50/90 border-t border-gray-200 flex items-center justify-between">
                     <span className="text-[11px] font-medium text-gray-500">PostGIS Geotagged</span>
-                    <Link
-                      to="/supplier/matches"
-                      className="text-xs font-bold text-[#143d2b] hover:text-[#0e3021] hover:underline flex items-center gap-1"
-                    >
-                      View Matches <span>→</span>
-                    </Link>
+                    <div className="flex items-center gap-3">
+                      <Link
+                        to={`/supplier/edit-listing/${item.id}`}
+                        className="text-xs font-bold text-[#143d2b] hover:text-[#0e3021] hover:underline"
+                      >
+                        Edit
+                      </Link>
+                      <Link
+                        to="/supplier/matches"
+                        className="text-xs font-bold text-[#143d2b] hover:text-[#0e3021] hover:underline flex items-center gap-1"
+                      >
+                        View Matches <span>→</span>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               ))}
