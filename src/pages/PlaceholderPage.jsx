@@ -8,23 +8,23 @@ export default function PlaceholderPage({ title, description }) {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-between">
       {/* Header Bar */}
-      <header className="bg-white border-b border-gray-200 py-4 px-6 sm:px-8">
+      <header className="bg-white border-b border-gray-200 py-3.5 px-4 sm:px-6 lg:px-8 sticky top-0 z-30 shadow-2xs">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <button 
             type="button"
             onClick={() => navigate('/')}
-            className="flex items-center gap-2 cursor-pointer focus:outline-hidden"
+            className="flex items-center gap-2 cursor-pointer focus:outline-hidden transition-transform hover:scale-[1.01]"
           >
-            <img src={logoImg} alt="Sagip-Ani logo" className="h-9 w-auto" />
+            <img src={logoImg} alt="Sagip-Ani logo" className="h-8 sm:h-9 w-auto" />
           </button>
           
           <button
             type="button"
             onClick={() => navigate('/')}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-800 hover:text-emerald-950 cursor-pointer"
+            className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-emerald-900 bg-emerald-50/90 hover:bg-emerald-100/90 border border-emerald-200/80 hover:border-emerald-300 transition-all duration-150 shadow-2xs hover:shadow-xs cursor-pointer group"
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to Home</span>
+            <ArrowLeft className="w-4 h-4 text-emerald-700 transition-transform duration-150 group-hover:-translate-x-0.5" />
+            <span>Back to Dashboard</span>
           </button>
         </div>
       </header>
