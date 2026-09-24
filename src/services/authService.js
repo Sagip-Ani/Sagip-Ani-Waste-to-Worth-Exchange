@@ -3,18 +3,21 @@ import { profileService } from './profileService';
 
 export const authService = {
   /**
-   * Register a new user with Supabase Auth and initialize profile tables
+   * Register a new user with Supabase Auth.
+   * Profile is auto-created by the database trigger `handle_new_user()`
+   * on `auth.users` insert. This avoids RLS issues during signup when
+   * email confirmation is enabled (auth.uid() may be null initially).
    */
   async signUp({ fullName, email, phone, password, role, roleDetails = {} }) {
     if (!isSupabaseConfigured) {
       return {
         data: null,
-        error: new Error('Supabase authentication is not configured yet. Please configure your .env file with VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY.')
+        error: new Error('Supabase authentication is not configured yet. Please configure your .env file with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.')
       };
     }
 
     try {
-      // 1. Supabase Auth signup
+      // Supabase Auth signup - profile created automatically by DB trigger
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: email.trim(),
         password,
@@ -30,19 +33,8 @@ export const authService = {
       if (authError) throw authError;
       if (!authData.user) throw new Error('Registration failed. No user was returned by authentication service.');
 
-      // 2. Insert into profiles & role-specific profiles
-      const { error: profileError } = await profileService.createProfile({
-        userId: authData.user.id,
-        fullName: fullName.trim(),
-        role,
-        contactNumber: phone.trim(),
-        roleDetails
-      });
-
-      if (profileError) {
-        console.warn('[Sagip-Ani] Profile record creation warning:', profileError);
-        // Do not crash registration if auth succeeded; auth record is established
-      }
+      // Profile creation is handled by the database trigger
+      // No need to call profileService.createProfile() here
 
       return { data: authData, error: null };
     } catch (err) {

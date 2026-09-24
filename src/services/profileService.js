@@ -4,7 +4,7 @@ import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
  * Service for managing user profiles and role-specific tables
  * Schema:
  * - profiles (id, full_name, role, contact_number, created_at)
- * - supplier_profiles (user_id, farm_or_coop_name, barangay)
+ * - supplier_profiles (user_id, farm_or_coop_name, barangay, municipality, province)
  * - buyer_profiles (user_id, business_name, business_type)
  */
 
@@ -86,7 +86,9 @@ export const profileService = {
           .insert({
             user_id: userId,
             farm_or_coop_name: roleDetails.farmOrCoopName || `${fullName}'s Farm/Coop`,
-            barangay: roleDetails.barangay || 'Bukidnon'
+            barangay: roleDetails.barangay || 'Malaybalay City',
+            municipality: roleDetails.municipality || 'Malaybalay City',
+            province: roleDetails.province || 'Bukidnon'
           });
         if (supplierError) throw supplierError;
       } else if (role === 'buyer') {

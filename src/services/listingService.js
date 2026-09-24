@@ -21,13 +21,18 @@ export const listingService = {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('You must be signed in to create a listing.');
 
+    // Ensure location is a valid PostGIS point string
+    const pointLocation = typeof location === 'string' 
+      ? location 
+      : `POINT(${location.lng} ${location.lat})`;
+
     return await supabase
       .from('material_listings')
       .insert({
-        supplier_id: user.id, // Strictly associates auth.uid()
+        supplier_id: user.id,
         material_type: materialType,
         quantity_kg: quantityKg,
-        location,
+        location: pointLocation,
         available_from: availableFrom,
         available_until: availableUntil,
         status: 'listed'
@@ -38,6 +43,12 @@ export const listingService = {
 
   async updateListing(id, updates) {
     if (!isSupabaseConfigured) return { data: null, error: null };
+    
+    // Convert location if provided as object
+    if (updates.location && typeof updates.location === 'object') {
+      updates.location = `POINT(${updates.location.lng} ${updates.location.lat})`;
+    }
+    
     return await supabase
       .from('material_listings')
       .update(updates)

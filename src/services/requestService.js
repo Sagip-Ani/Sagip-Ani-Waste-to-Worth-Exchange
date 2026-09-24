@@ -14,7 +14,13 @@ export const requestService = {
         status,
         created_at,
         initiated_by,
-        match:match_id (*)
+        match:match_id (
+          id,
+          score,
+          distance_km,
+          listing:listing_id (id, material_type, quantity_kg, supplier_id),
+          demand:demand_id (id, material_type, quantity_needed_kg, buyer_id)
+        )
       `)
       .order('created_at', { ascending: false });
   },
