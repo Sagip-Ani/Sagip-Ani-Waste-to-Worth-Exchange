@@ -21,13 +21,18 @@ export const demandService = {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('You must be signed in to create a buyer demand.');
 
+    // Ensure location is a valid PostGIS point string
+    const pointLocation = typeof location === 'string'
+      ? location
+      : `POINT(${location.lng} ${location.lat})`;
+
     return await supabase
       .from('buyer_demands')
       .insert({
-        buyer_id: user.id, // Strictly associates auth.uid()
+        buyer_id: user.id,
         material_type: materialType,
         quantity_needed_kg: quantityNeededKg,
-        location,
+        location: pointLocation,
         max_distance_km: maxDistanceKm
       })
       .select()
@@ -36,6 +41,12 @@ export const demandService = {
 
   async updateDemand(id, updates) {
     if (!isSupabaseConfigured) return { data: null, error: null };
+    
+    // Convert location if provided as object
+    if (updates.location && typeof updates.location === 'object') {
+      updates.location = `POINT(${updates.location.lng} ${updates.location.lat})`;
+    }
+    
     return await supabase
       .from('buyer_demands')
       .update(updates)

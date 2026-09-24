@@ -91,7 +91,9 @@ export default function Register() {
         role,
         roleDetails: {
           farmOrCoopName: `${fullName.trim()}'s Farm / Cooperative`,
-          barangay: 'Malaybalay City, Bukidnon',
+          barangay: 'Malaybalay City',
+          municipality: 'Malaybalay City',
+          province: 'Bukidnon',
           businessName: `${fullName.trim()}'s Agricultural Processing`,
           businessType: 'other'
         }
